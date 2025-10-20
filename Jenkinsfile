@@ -1,18 +1,21 @@
 pipeline {
-   //agent { label 'AGENT-1' } 
+    // agent { label 'AGENT-1' }
     agent any
-    environment { 
+    
+    environment {
         PROJECT = 'Expense'
         COMPONENT = 'Backend'
         ENV = 'Prod'
         appVersion = ''
-        }
-    options { 
-        disableConcurrentBuilds() 
+    }
+    
+    options {
+        disableConcurrentBuilds()
         timeout(time: 25, unit: 'MINUTES')
-        } 
+    }
+    
     stages {
-        stage('Read-Version'){
+        stage('Read-Version') {
             steps {
                 script {
                     def packageJson = readJSON file: 'package.json'
@@ -21,31 +24,34 @@ pipeline {
                 }
             }
         }
-        stage('Install-dependencies'){
+        
+        stage('Install-dependencies') {
             steps {
                 script {
-                    sh ''' 
-                    echo "Installing Dependencies"
-                    npm install
+                    sh '''
+                        echo "Installing Dependencies"
+                        npm install
                     '''
                 }
             }
         }
-       
     }
-    post { 
-        always { 
+    
+    post {
+        always {
             echo 'I will always say There we go.. Hello again!'
         }
-        //deleteDir() // Deletes the workspace
-        // cleanup {
-        //     cleanWs() // Deletes the workspace
-        // }
+        
         success {
             echo 'I will say Build-Hello on Success'
         }
+        
         failure {
             echo 'I will say Failure-Hello on Failure'
         }
+        
+        // cleanup {
+        //     cleanWs() // Deletes the workspace
+        // }
     }
 }
