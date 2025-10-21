@@ -6,7 +6,7 @@ pipeline {
         COMPONENT = 'Backend'
         ENV = 'Prod'
         appVersion = ''
-        accountId = ''
+        accountId = '463470981697'
     }
     
     options {
@@ -45,14 +45,15 @@ pipeline {
                 }
             }
         }
+        
         stage('Pushing-Docker-Image-to-AWS-ECR') {
             steps {
                 script {
-                    withAWS(region:'us-east-1', credentials:'	AWS-Creds')
-                    sh """
-                        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 
-                        ${accountId}.dkr.ecr.us-east-1.amazonaws.com
-                    """
+                    withAWS(region: 'us-east-1', credentials: 'AWS-Creds') {
+                        sh """
+                            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${accountId}.dkr.ecr.us-east-1.amazonaws.com
+                        """
+                    }
                 }
             }
         }
