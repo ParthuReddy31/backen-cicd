@@ -6,6 +6,7 @@ pipeline {
         COMPONENT = 'Backend'
         ENV = 'Prod'
         appVersion = ''
+        accountId = ''
     }
     
     options {
@@ -41,6 +42,17 @@ pipeline {
                         echo "Building Docker Image"
                         docker build -t parthureddy3/backend:1.0 .
                     '''
+                }
+            }
+        }
+        stage('Pushing-Docker-Image-to-AWS-ECR') {
+            steps {
+                script {
+                    withAWS(region:'us-east-1', credentials:'	AWS-Creds')
+                    sh """
+                        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 
+                        ${accountId}.dkr.ecr.us-east-1.amazonaws.com
+                    """
                 }
             }
         }
