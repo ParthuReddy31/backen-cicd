@@ -34,7 +34,18 @@ pipeline {
                 }
             }
         }
+        stage('Building-Docker-Image') {
+            steps {
+                script {
+                    sh '''
+                        echo "Building Docker Image"
+                        docker build -t parthureddy3/backend:1.0 .
+                    '''
+                }
+            }
+        }
     }
+}
     
     post {
         always {
