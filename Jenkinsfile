@@ -73,7 +73,7 @@ pipeline {
         }
         
         failure {
-            echo 'I will say Failure-Hello on Failure'
+            echo 'I will greet you Failure-Hello on Failure'
         }
         
         // cleanup {
