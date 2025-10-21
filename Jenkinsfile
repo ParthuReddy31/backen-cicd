@@ -45,7 +45,6 @@ pipeline {
             }
         }
     }
-}
     
     post {
         always {
@@ -63,5 +62,5 @@ pipeline {
         // cleanup {
         //     cleanWs() // Deletes the workspace
         // }
-
+    }
 }
