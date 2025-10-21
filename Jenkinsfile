@@ -2,9 +2,9 @@ pipeline {
     agent { label 'Agent-1' }
 
     environment {
-        PROJECT = 'Expense'
-        COMPONENT = 'Backend'
-        ENV = 'Prod'
+        PROJECT = 'expense'
+        COMPONENT = 'backend'
+        ENV = 'prod'
         appVersion = ''
         accountId = '463470981697'
     }
